@@ -4,6 +4,7 @@ namespace discord_bot.Common;
 
 public class Logger
 {
+    //TODO: Start using serilog or something better
     public static async Task Log(LogSeverity severity, string source, string message, Exception? exception = null)
     {
         await Log(new LogMessage(severity, source, message, exception));

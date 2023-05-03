@@ -7,7 +7,6 @@ using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
 using discord_bot.Common;
-using discord_bot.Init;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 
@@ -41,7 +40,7 @@ public class InteractionHandler
 
         _handler.InteractionExecuted += async (optional, context, result) =>
         {
-            if (!result.IsSuccess && result.Error != InteractionCommandError.UnknownCommand)
+            if (!result.IsSuccess && result.Error != InteractionCommandError.UnmetPrecondition)
             {
                 // the command failed, let's notify the user that something happened.
                 await context.Channel.SendMessageAsync($"error: {result}");
@@ -72,13 +71,6 @@ public class InteractionHandler
             // Execute the incoming command.
             var result = await _handler.ExecuteCommandAsync(context, _services);
 
-            if (!result.IsSuccess)
-                switch (result.Error)
-                {
-                    case InteractionCommandError.UnmetPrecondition:
-                        // implement
-                        break;
-                }
         }
         catch
         {
