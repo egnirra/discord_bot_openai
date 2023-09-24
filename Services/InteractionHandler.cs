@@ -53,14 +53,14 @@ public class InteractionHandler
             await Logger.Log(LogSeverity.Info, $"{nameof(CommandHandler)} | Interactions", message: $"Module '{module.Name}' initialized.");
         }
     }
-    private async Task ReadyAsync(DiscordSocketClient shard)
+    public async Task ReadyAsync(DiscordSocketClient shard)
     {
         await Logger.Log(LogSeverity.Info, "ShardReady", $"Shard Number {shard.ShardId} is connected and ready!");
         // Context & Slash commands can be automatically registered, but this process needs to happen after the client enters the READY state.
         await _handler.RegisterCommandsGloballyAsync(deleteMissing: true);
     }
 
-    private async Task HandleInteraction(SocketInteraction interaction)
+    public async Task HandleInteraction(SocketInteraction interaction)
     {
 
         try
